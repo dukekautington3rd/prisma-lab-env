@@ -31,3 +31,6 @@ override.tf.json
 # example: *tfplan*
 
 *.skip
+.vscode
+kubeconfig*
+*.zip

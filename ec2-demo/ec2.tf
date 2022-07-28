@@ -1,4 +1,5 @@
 resource "aws_instance" "utility_instance" {
+	# checkov:skip=CKV_AWS_88: Public jump box
   ami           = "ami-042e8287309f5df03"
   instance_type = "t2.micro"
   key_name = var.key_pair
@@ -15,6 +16,7 @@ resource "aws_instance" "utility_instance" {
 }
 
 resource "aws_instance" "web_instance" {
+	# checkov:skip=CKV_AWS_88: Public Access Web Server
   ami           = "ami-052efd3df9dad4825"
   instance_type = "t2.micro"
   key_name = var.key_pair

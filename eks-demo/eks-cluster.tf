@@ -18,8 +18,8 @@ module "vpc" {
   enable_dns_hostnames = true
 
   tags = {
-    "Terraform Managed" = "true"
-    "Terraform Suffix" = "${random_string.suffix.result}"
+    "Terraform Managed"                           = "true"
+    "Terraform Suffix"                            = "${random_string.suffix.result}"
     "kubernetes.io/cluster/${local.cluster_name}" = "shared"
   }
 
@@ -64,7 +64,7 @@ resource "aws_security_group" "worker_group_mgmt_two" {
   }
   tags = {
     "Terraform Managed" = "true"
-    "Terraform Suffix" = "${random_string.suffix.result}"
+    "Terraform Suffix"  = "${random_string.suffix.result}"
   }
 }
 
@@ -85,7 +85,7 @@ resource "aws_security_group" "all_worker_mgmt" {
   }
   tags = {
     "Terraform Managed" = "true"
-    "Terraform Suffix" = "${random_string.suffix.result}"
+    "Terraform Suffix"  = "${random_string.suffix.result}"
   }
 }
 
@@ -121,12 +121,12 @@ module "eks" {
       instance_type                 = "t2.medium"
       additional_userdata           = "echo foo bar"
       additional_security_group_ids = [aws_security_group.worker_group_mgmt_two.id]
-      asg_desired_capacity          = 1
+      asg_desired_capacity          = 2
     },
   ]
   tags = {
     "Terraform Managed" = "true"
-    "Terraform Suffix" = "${random_string.suffix.result}"
+    "Terraform Suffix"  = "${random_string.suffix.result}"
   }
 }
 
@@ -134,7 +134,7 @@ data "aws_eks_cluster" "cluster" {
   name = module.eks.cluster_id
   tags = {
     "Terraform Managed" = "true"
-    "Terraform Suffix" = "${random_string.suffix.result}"
+    "Terraform Suffix"  = "${random_string.suffix.result}"
   }
 }
 

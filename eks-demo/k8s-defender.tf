@@ -4,7 +4,6 @@ resource "kubernetes_namespace" "twistlock" {
   }
 }
 
-
 resource "kubernetes_cluster_role" "twistlock_view" {
   metadata {
     name = "twistlock-view"
@@ -14,18 +13,6 @@ resource "kubernetes_cluster_role" "twistlock_view" {
     verbs      = ["list"]
     api_groups = ["rbac.authorization.k8s.io"]
     resources  = ["roles", "rolebindings", "clusterroles", "clusterrolebindings"]
-  }
-
-  rule {
-    verbs      = ["get"]
-    api_groups = ["apps"]
-    resources  = ["deployments", "replicasets"]
-  }
-
-  rule {
-    verbs      = ["get"]
-    api_groups = [""]
-    resources  = ["namespaces", "pods"]
   }
 }
 
@@ -147,6 +134,14 @@ resource "kubernetes_daemonset" "twistlock_defender_ds" {
           }
         }
 
+        volume {
+          name = "runc-proxy-sock-folder"
+
+          host_path {
+            path = "/run"
+          }
+        }
+
         container {
           name  = "twistlock-defender"
           image = var.PCC_IMAGE
@@ -183,7 +178,7 @@ resource "kubernetes_daemonset" "twistlock_defender_ds" {
 
           env {
             name  = "DEFENDER_CLUSTER_ID"
-            value = "da4ff95e-357a-e6c5-359f-5f62ae968d1e"
+            value = "bdf8d83c-37fb-e60a-8e2f-2116200d8e86"
           }
 
           env {
@@ -202,7 +197,7 @@ resource "kubernetes_daemonset" "twistlock_defender_ds" {
 
           env {
             name  = "COLLECT_POD_LABELS"
-            value = "true"
+            value = "false"
           }
 
           env {
@@ -258,6 +253,11 @@ resource "kubernetes_daemonset" "twistlock_defender_ds" {
             mount_path = "/dev/log"
           }
 
+          volume_mount {
+            name       = "runc-proxy-sock-folder"
+            mount_path = "/run"
+          }
+
           security_context {
             capabilities {
               add = ["NET_ADMIN", "NET_RAW", "SYS_ADMIN", "SYS_PTRACE", "SYS_CHROOT", "MKNOD", "SETFCAP", "IPC_LOCK"]
@@ -298,34 +298,4 @@ resource "kubernetes_service" "defender" {
     }
   }
 }
-/*
-resource "kubernetes_validating_webhook_configuration" "tw_validating_webhook" {
-  metadata {
-    name = "tw-validating-webhook"
-  }
 
-  webhook {
-    name = "validating-webhook.twistlock.com"
-
-    client_config {
-      service {
-        namespace = "twistlock"
-        name      = "defender"
-        path      = "/bssapd2ho7qjlk6rate5arthrg4z"
-      }
-
-      ca_bundle = var.PCC_VWH_CA
-    }
-
-    rule {
-      operations = ["CREATE", "UPDATE", "CONNECT"]
-    }
-
-    failure_policy            = "Ignore"
-    match_policy              = "Equivalent"
-    side_effects              = "None"
-    timeout_seconds           = 2
-    admission_review_versions = ["v1", "v1beta1"]
-  }
-}
-*/

@@ -21,6 +21,7 @@ module "vpc" {
     "Terraform Managed"                           = "true"
     "Terraform Suffix"                            = "${random_string.suffix.result}"
     "kubernetes.io/cluster/${local.cluster_name}" = "shared"
+    yor_trace                                     = "bcf5f37d-9b4b-49ba-9ad3-61f92b6a4f88"
   }
 
   public_subnet_tags = {
@@ -47,6 +48,9 @@ resource "aws_security_group" "worker_group_mgmt_one" {
       "10.0.0.0/8",
     ]
   }
+  tags = {
+    yor_trace = "45bdeba7-a21f-45b7-90fa-2d8dc7f8c486"
+  }
 }
 
 resource "aws_security_group" "worker_group_mgmt_two" {
@@ -65,6 +69,7 @@ resource "aws_security_group" "worker_group_mgmt_two" {
   tags = {
     "Terraform Managed" = "true"
     "Terraform Suffix"  = "${random_string.suffix.result}"
+    yor_trace           = "ee982083-251b-497c-abff-c16323d67ac6"
   }
 }
 
@@ -86,6 +91,7 @@ resource "aws_security_group" "all_worker_mgmt" {
   tags = {
     "Terraform Managed" = "true"
     "Terraform Suffix"  = "${random_string.suffix.result}"
+    yor_trace           = "98939636-a0ce-44ad-8a6d-a5c3fdf06f5c"
   }
 }
 
@@ -127,6 +133,7 @@ module "eks" {
   tags = {
     "Terraform Managed" = "true"
     "Terraform Suffix"  = "${random_string.suffix.result}"
+    yor_trace           = "19561ab8-1ec8-4eec-8029-0bcbb178f494"
   }
 }
 

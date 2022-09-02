@@ -10,8 +10,9 @@ resource "aws_instance" "utility_instance" {
   monitoring                  = true
 
   tags = {
-    Name     = "Utility Instance"
-    Defender = "false"
+    Name      = "Utility Instance"
+    Defender  = "false"
+    yor_trace = "e679949e-2452-4e9e-8ad7-e9db9f231ea8"
   }
 }
 
@@ -25,8 +26,9 @@ resource "aws_instance" "web_instance" {
   vpc_security_group_ids      = [aws_security_group.allow_ssh.id, aws_security_group.allow_http.id]
 
   tags = {
-    Name     = "Web Instance"
-    Defender = "false"
+    Name      = "Web Instance"
+    Defender  = "false"
+    yor_trace = "e5f76f9c-2be5-4f44-8dad-d018a47152e5"
   }
   user_data = <<-EOF
     #!/bin/bash

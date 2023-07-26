@@ -18,6 +18,8 @@ resource "aws_iam_role" "pc_flow_role" {
 EOF
   tags = {
     yor_trace = "531ad167-0772-4a11-967c-c6ace1f399c9"
+    git_org   = "dukekautington3rd"
+    git_repo  = "prisma-lab-env"
   }
 }
 
@@ -60,6 +62,8 @@ resource "aws_iam_role" "ssm_role_tf" {
 EOF
   tags = {
     yor_trace = "e561000c-a565-40d2-80a8-47f65fb15203"
+    git_org   = "dukekautington3rd"
+    git_repo  = "prisma-lab-env"
   }
 }
 
@@ -73,5 +77,7 @@ resource "aws_iam_instance_profile" "ssm_mgr_policy" {
   role = aws_iam_role.ssm_role_tf.name
   tags = {
     yor_trace = "94825cd1-2400-444e-8a4c-4e0d09d1e9ae"
+    git_org   = "dukekautington3rd"
+    git_repo  = "prisma-lab-env"
   }
 }

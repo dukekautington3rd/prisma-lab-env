@@ -6,6 +6,8 @@ resource "aws_vpc" "utility" {
   tags = {
     Name      = "ec2-vpc-${random_string.suffix.id}"
     yor_trace = "9ecca9cb-4e15-47c4-8868-9b81f6e3606a"
+    git_org   = "dukekautington3rd"
+    git_repo  = "prisma-lab-env"
   }
 }
 
@@ -17,6 +19,8 @@ resource "aws_subnet" "public" {
   tags = {
     Name      = "Public Subnet"
     yor_trace = "50b21e02-5f39-44c2-aad6-d720014a2f94"
+    git_org   = "dukekautington3rd"
+    git_repo  = "prisma-lab-env"
   }
 }
 
@@ -26,6 +30,8 @@ resource "aws_internet_gateway" "utility_igw" {
   tags = {
     Name      = "utility VPC - Internet Gateway"
     yor_trace = "1093418c-abb4-4965-a5f8-a924166dad3b"
+    git_org   = "dukekautington3rd"
+    git_repo  = "prisma-lab-env"
   }
 }
 
@@ -40,6 +46,8 @@ resource "aws_route_table" "utility_us_east_1a_public" {
   tags = {
     Name      = "Public Subnet Route Table"
     yor_trace = "608e4aa0-46f7-4518-9cac-8fde91e59e54"
+    git_org   = "dukekautington3rd"
+    git_repo  = "prisma-lab-env"
   }
 }
 
@@ -70,6 +78,8 @@ resource "aws_security_group" "allow_ssh" {
   tags = {
     Name      = "allow_ssh_sg"
     yor_trace = "5df0b814-505a-42c6-acf0-d41ada8ca583"
+    git_org   = "dukekautington3rd"
+    git_repo  = "prisma-lab-env"
   }
 }
 
@@ -95,6 +105,8 @@ resource "aws_security_group" "allow_http" {
   tags = {
     Name      = "allow_http_sg"
     yor_trace = "03b89b1b-af65-42db-9703-82c5863658df"
+    git_org   = "dukekautington3rd"
+    git_repo  = "prisma-lab-env"
   }
 }
 
@@ -113,6 +125,8 @@ resource "aws_security_group" "allow_outbound" {
   tags = {
     Name      = "allow_outbound_sg"
     yor_trace = "24377a67-0ca9-4f5a-887e-e8bc8b83bfcb"
+    git_org   = "dukekautington3rd"
+    git_repo  = "prisma-lab-env"
   }
 }
 
@@ -133,5 +147,7 @@ resource "aws_default_security_group" "default" {
 
   tags = {
     yor_trace = "e2ab1c3d-2a07-49bf-a359-e0e5618a91c3"
+    git_org   = "dukekautington3rd"
+    git_repo  = "prisma-lab-env"
   }
 }
